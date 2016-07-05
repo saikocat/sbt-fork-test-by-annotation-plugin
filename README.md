@@ -2,11 +2,15 @@
 A sbt plugin to provide curried function to filter test marked with specific annotations and fork them
 
 # Installation
-For sbt 0.13.6+ add sbt-assembly as a dependency in `project/plugins.sbt`:
+For sbt 0.13.6+ add sbt-assembly as a dependency in `project/plugins.sbt`. Once it is accepted in `sbt-plugin-releases`, we can skip the resolver portion
 
 ```
+resolvers += Resolver.url("ForkTestByAnnotationRepo", url("https://dl.bintray.com/saikocat/sbt-plugins/"))(Resolver.ivyStylePatterns)
+
 addSbtPlugin("com.saikocat" % "sbt-fork-test-by-annotation-plugin" % "0.1.0")
 ```
+
+
 
 # Usage
 In `build.sbt` or `Build.scala`
