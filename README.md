@@ -2,7 +2,7 @@
 A sbt plugin to provide curried function to filter test marked with specific annotations and fork them
 
 # Installation
-For sbt 0.13.6+ add sbt-assembly as a dependency in `project/assembly.sbt`:
+For sbt 0.13.6+ add sbt-assembly as a dependency in `project/plugins.sbt`:
 
 ```
 addSbtPlugin("com.saikocat" % "sbt-fork-test-by-annotation-plugin" % "0.1.0")
@@ -44,8 +44,22 @@ testGrouping in Test <<= (definedTests in Test, testsAnnotatedWithRequiresSpark)
   .map { (testDefs, testsToFork) =>
     groupTestsToInProcessAndForkedJvm(
       testDefs, testsToFork,
-      new sbt.ForkOptions(runJVMOptions = Seq(s"-Dgroup.prefix=someProp)))
+      new sbt.ForkOptions(runJVMOptions = Seq(s"-Dgroup.prefix=someProp")))
   }
+```
+
+
+## Imported Functions Signature:
+```scala
+def isAnnotatedWith(definition: Definition)
+                   (annotationFilterFn: String => Boolean): Boolean
+
+def sourcesAnnotatedWith(analysis: Analysis)
+                        (annotatedWithFn: Definition => Boolean): Seq[String] 
+
+def groupTestsToInProcessAndForkedJvm(testDefs: Seq[TestDefinition],
+                                      testsToFork: Seq[String],
+                                      forkOptions: ForkOptions = ForkOptions()): Seq[Group]
 ```
 
 
